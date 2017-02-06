@@ -6,7 +6,5 @@ import dean.com.template.domain.model.MovieInfo;
 
 public interface HomeView {
 
-    void showError(Throwable throwable);
-
     void showData(List<MovieInfo> movieInfo);
 }

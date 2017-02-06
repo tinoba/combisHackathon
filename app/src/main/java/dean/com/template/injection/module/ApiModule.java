@@ -1,5 +1,7 @@
 package dean.com.template.injection.module;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -17,7 +19,6 @@ import dean.com.template.device.DeviceInformation;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static dean.com.template.data.api.APIConstants.BASE_URL;
@@ -36,7 +37,7 @@ public final class ApiModule {
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 

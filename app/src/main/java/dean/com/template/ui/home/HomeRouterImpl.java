@@ -1,6 +1,5 @@
 package dean.com.template.ui.home;
 
-
 import android.app.Activity;
 
 public class HomeRouterImpl implements HomeRouter {

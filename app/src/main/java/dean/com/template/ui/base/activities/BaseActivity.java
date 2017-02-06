@@ -8,7 +8,6 @@ import dean.com.template.application.TemplateApplication;
 import dean.com.template.injection.ComponentFactory;
 import dean.com.template.injection.component.ActivityComponent;
 
-
 public abstract class BaseActivity extends AppCompatActivity {
 
     private ActivityComponent activityComponent;
@@ -34,5 +33,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract void inject(ActivityComponent activityComponent);
-
 }

@@ -7,7 +7,6 @@ import dean.com.template.application.TemplateApplication;
 import dean.com.template.injection.component.ActivityComponent;
 import dean.com.template.ui.base.activities.BaseActivity;
 
-
 public abstract class BaseFragment extends Fragment {
 
     private ActivityComponent activityComponent;

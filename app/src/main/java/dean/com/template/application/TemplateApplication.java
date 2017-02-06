@@ -4,6 +4,7 @@ import android.app.Application;
 
 import dean.com.template.injection.ComponentFactory;
 import dean.com.template.injection.component.ApplicationComponent;
+import timber.log.Timber;
 
 public final class TemplateApplication extends Application {
 
@@ -15,6 +16,7 @@ public final class TemplateApplication extends Application {
 
         applicationComponent = ComponentFactory.createApplicationComponent(this);
         applicationComponent.inject(this);
+        Timber.plant(new Timber.DebugTree());
     }
 
     public ApplicationComponent getApplicationComponent() {

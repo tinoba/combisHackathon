@@ -1,6 +1,5 @@
 package dean.com.template.ui.base.presenter;
 
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -11,7 +10,6 @@ public abstract class BasePresenter {
     public void addDisposable(final Disposable disposable) {
         if (compositeDisposable == null || compositeDisposable.isDisposed()) {
             compositeDisposable = new CompositeDisposable();
-
         }
         compositeDisposable.add(disposable);
     }

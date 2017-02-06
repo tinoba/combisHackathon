@@ -1,10 +1,8 @@
 package dean.com.template.ui.home;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -19,11 +17,8 @@ import dean.com.template.ui.base.activities.BaseActivity;
 
 public class HomeActivity extends BaseActivity implements HomeView {
 
-    private static final String TAG = HomeActivity.class.getSimpleName();
-
     @Inject
     HomePresenter presenter;
-
 
     public static Intent createIntent(final Context context) {
         return new Intent(context, HomeActivity.class);
@@ -35,8 +30,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
-
-
     }
 
     @Override
@@ -52,20 +45,13 @@ public class HomeActivity extends BaseActivity implements HomeView {
         presenter.dispose();
     }
 
-
-
     @Override
     protected void inject(final ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
 
     @Override
-    public void showError(Throwable throwable) {
-        Log.e(TAG, throwable.getMessage().toString());
-    }
-
-    @Override
-    public void showData(List<MovieInfo> movieInfo) {
+    public void showData(final List<MovieInfo> movieInfo) {
         Toast.makeText(this, movieInfo.get(0).getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
