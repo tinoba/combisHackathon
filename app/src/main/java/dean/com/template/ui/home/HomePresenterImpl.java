@@ -52,15 +52,15 @@ public final class HomePresenterImpl extends BasePresenter implements HomePresen
                                       .map(movieAPIConverter::convertToMovieInfo)
                                       .subscribeOn(subscribeScheduler)
                                       .observeOn(observeScheduler)
-                                      .subscribe(this::onGetPersonInfoSuccess, this::onGetPersonInfoFailure));
+                                      .subscribe(this::onGetMovieInfoSuccess, this::onGetMovieInfoFailure));
         }
     }
 
-    private void onGetPersonInfoFailure(final Throwable throwable) {
+    private void onGetMovieInfoFailure(final Throwable throwable) {
         Timber.e(stringManager.getString(R.string.fetch_movie_info_error), throwable);
     }
 
-    private void onGetPersonInfoSuccess(final List<MovieInfo> movieInfo) {
+    private void onGetMovieInfoSuccess(final List<MovieInfo> movieInfo) {
         if (view != null) {
             view.showData(movieInfo);
         }

@@ -11,7 +11,7 @@ import dagger.Provides;
 import dean.com.template.data.api.NetworkInterceptor;
 import dean.com.template.data.api.converter.MovieAPIConverter;
 import dean.com.template.data.api.converter.MovieAPIConverterImpl;
-import dean.com.template.data.service.InventoryAPI;
+import dean.com.template.data.service.TemplateAPI;
 import dean.com.template.data.service.NetworkService;
 import dean.com.template.data.service.NetworkServiceImpl;
 import dean.com.template.device.ApplicationInformation;
@@ -43,8 +43,8 @@ public final class ApiModule {
 
     @Provides
     @Singleton
-    NetworkService provideNetworkService(final InventoryAPI inventoryAPI) {
-        return new NetworkServiceImpl(inventoryAPI);
+    NetworkService provideNetworkService(final TemplateAPI templateAPI) {
+        return new NetworkServiceImpl(templateAPI);
     }
 
 
@@ -57,8 +57,8 @@ public final class ApiModule {
 
     @Provides
     @Singleton
-    InventoryAPI provideInventoryAPI(final Retrofit retrofit) {
-        return retrofit.create(InventoryAPI.class);
+    TemplateAPI provideInventoryAPI(final Retrofit retrofit) {
+        return retrofit.create(TemplateAPI.class);
     }
 
 
@@ -75,7 +75,7 @@ public final class ApiModule {
 
     @Provides
     @Singleton
-    public NetworkInterceptor provideInfinumInterceptor(final DeviceInformation deviceInformation,
+    public NetworkInterceptor provideNetworkInterceptor(final DeviceInformation deviceInformation,
             final ApplicationInformation applicationInformation) {
         final int osVersion = deviceInformation.getOsVersionInt();
         final String appVersionName = applicationInformation.getVersionName();

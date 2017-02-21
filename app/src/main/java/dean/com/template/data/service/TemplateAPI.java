@@ -6,10 +6,12 @@ import dean.com.template.data.api.models.response.MovieApiResponse;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 
-public interface InventoryAPI {
+import static dean.com.template.data.api.APIConstants.PATH_MOVIES;
+
+public interface TemplateAPI {
 
 
-    @GET("json/movies.json")
+    @GET(PATH_MOVIES)
     Single<List<MovieApiResponse>> movieInfo();
 
 //    @Headers(CONTENT_TYPE_HEADER)

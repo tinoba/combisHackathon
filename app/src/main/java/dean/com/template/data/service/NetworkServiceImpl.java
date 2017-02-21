@@ -8,16 +8,16 @@ import io.reactivex.Single;
 
 public final class NetworkServiceImpl implements NetworkService {
 
-    private final InventoryAPI inventoryAPI;
+    private final TemplateAPI templateAPI;
 
-    public NetworkServiceImpl(final InventoryAPI inventoryAPI) {
-        this.inventoryAPI = inventoryAPI;
+    public NetworkServiceImpl(final TemplateAPI templateAPI) {
+        this.templateAPI = templateAPI;
     }
 
 
     @Override
     public Single<List<MovieApiResponse>> movieInfo() {
-        return Single.defer(() -> inventoryAPI.movieInfo());
+        return Single.defer(() -> templateAPI.movieInfo());
     }
 
 

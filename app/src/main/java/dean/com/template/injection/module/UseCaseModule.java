@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dean.com.template.data.service.NetworkService;
-import dean.com.template.data.storage.InventoryPreferences;
+import dean.com.template.data.storage.TemplatePreferences;
 import dean.com.template.domain.usecase.MovieUseCase;
 import dean.com.template.domain.usecase.MovieUseCaseImpl;
 
@@ -15,7 +15,7 @@ public final class UseCaseModule {
 
     @Provides
     @Singleton
-    MovieUseCase providePersonUseCase(final InventoryPreferences preferences, final NetworkService networkService) {
+    MovieUseCase providePersonUseCase(final TemplatePreferences preferences, final NetworkService networkService) {
         return new MovieUseCaseImpl(networkService, preferences);
     }
 

@@ -2,7 +2,7 @@ package dean.com.template.data.storage;
 
 import android.content.SharedPreferences;
 
-public final class InventoryPreferences implements PreferenceRepository {
+public final class TemplatePreferences implements PreferenceRepository {
 
     private static final String KEY_USER_ID = "key_user_id";
 
@@ -16,11 +16,11 @@ public final class InventoryPreferences implements PreferenceRepository {
     private final SharedPreferences secureDelegate;
 
 
-    public static InventoryPreferences create(final SharedPreferences secureDelegate) {
-        return new InventoryPreferences(secureDelegate);
+    public static TemplatePreferences create(final SharedPreferences secureDelegate) {
+        return new TemplatePreferences(secureDelegate);
     }
 
-    private InventoryPreferences(final SharedPreferences secureDelegate) {
+    private TemplatePreferences(final SharedPreferences secureDelegate) {
         this.secureDelegate = secureDelegate;
     }
 

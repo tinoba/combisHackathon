@@ -15,7 +15,7 @@ public final class DeviceModule {
 
     @Provides
     @Singleton
-    public DeviceInformation prvoideDeviceInformation() {
+    public DeviceInformation provideDeviceInformation() {
         return new DeviceInformationImpl();
     }
 

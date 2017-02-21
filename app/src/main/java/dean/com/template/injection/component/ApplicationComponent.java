@@ -7,7 +7,7 @@ import dagger.Component;
 import dean.com.template.application.TemplateApplication;
 import dean.com.template.data.api.converter.MovieAPIConverter;
 import dean.com.template.data.service.NetworkService;
-import dean.com.template.data.storage.InventoryPreferences;
+import dean.com.template.data.storage.TemplatePreferences;
 import dean.com.template.device.ApplicationInformation;
 import dean.com.template.device.DeviceInformation;
 import dean.com.template.domain.usecase.MovieUseCase;
@@ -62,7 +62,7 @@ public interface ApplicationComponent extends ApplicationComponentInjects {
 
     StringManager getStringManager();
 
-    MovieUseCase getPersonUseCase();
+    MovieUseCase getMovieUseCase();
 
     OkHttpClient getOkHttpClient();
 
@@ -70,9 +70,9 @@ public interface ApplicationComponent extends ApplicationComponentInjects {
 
     ApplicationInformation getApplicationInformation();
 
-    MovieAPIConverter getPersonApiConverter();
+    MovieAPIConverter getMovieApiConverter();
 
-    InventoryPreferences getInventoryPreferences();
+    TemplatePreferences getTemplatePreferences();
 
     NetworkService getNetworkService();
 }
