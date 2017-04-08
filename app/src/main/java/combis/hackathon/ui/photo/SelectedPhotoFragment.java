@@ -15,10 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +71,10 @@ public class SelectedPhotoFragment extends Fragment {
         ButterKnife.bind(this, v);
 
         data = getArguments().getString(ARGUMENTS);
-        Picasso.with(getActivity()).load(new File(data)).into(selectedImage);
+
+        Glide.with(getActivity()).load(data)
+             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
+             .into(selectedImage);
 
         selectedImage.setOnClickListener(new View.OnClickListener() {
 
