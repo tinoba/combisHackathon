@@ -13,7 +13,7 @@ public interface NetworkService {
 
     Single<List<LoginResponse>> login(UserInformation userInformation);
 
-    Single<List<PlansResponse>> getUserPlans();
+    Single<List<PlansResponse>> getUserPlans(long id);
 
     Single<UploadImageResponse> uploadImage(final ImageRequest imageRequest);
 }
