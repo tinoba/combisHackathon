@@ -1,7 +1,6 @@
 package combis.hackathon.ui.photo;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.ByteArrayOutputStream;
 
@@ -29,6 +30,7 @@ public class SelectedPhotoFragment extends Fragment {
 
     private static final String ARGUMENTS = "arguments";
     private String data;
+    Bitmap canvasImage;
 
     private boolean isPhotoClicked = false;
 
@@ -72,9 +74,24 @@ public class SelectedPhotoFragment extends Fragment {
 
         data = getArguments().getString(ARGUMENTS);
 
-        Glide.with(getActivity()).load(data)
-             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
-             .into(selectedImage);
+//        Glide.with(getActivity()).load(data)
+//             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
+//             .into(selectedImage);
+
+
+        Glide
+                .with(this)
+                .load(data)
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>(300, 300) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                        selectedImage.setImageBitmap(resource);
+                        canvasImage = resource;
+                    }
+                });
+
+//        Picasso.with(getActivity()).load(data).placeholder(R.drawable.ic_gallery_placeholder).into(selectedImage);
 
         selectedImage.setOnClickListener(new View.OnClickListener() {
 
@@ -104,7 +121,7 @@ public class SelectedPhotoFragment extends Fragment {
 
             @Override
             public void onClick(final View view) {
-                Bitmap canvasImage = ((BitmapDrawable)selectedImage.getDrawable()).getBitmap();
+//                Bitmap canvasImage = ((BitmapDrawable) selectedImage.getDrawable()).getBitmap();
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
                 canvasImage.compress(Bitmap.CompressFormat.JPEG, COMPRESS_QUALITY, bs);
                 byte[] bytes = bs.toByteArray();
