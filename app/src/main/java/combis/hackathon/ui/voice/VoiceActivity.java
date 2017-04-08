@@ -58,7 +58,6 @@ public class VoiceActivity extends BaseActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
         intent.putExtra("android.speech.extra.EXTRA_ADDITIONAL_LANGUAGES", new String[]{"en-US"});
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                         "combis.hackathon");
@@ -75,7 +74,7 @@ public class VoiceActivity extends BaseActivity {
                     Timber.e("No voice results");
                 } else {
                     Timber.e("Printing matches: ");
-
+                    Intent callIntent;
                     boolean found = false;
                     int count = 0;
                     for (String match : voiceResults) {
@@ -84,7 +83,7 @@ public class VoiceActivity extends BaseActivity {
                         switch (match) {
 
                             case "call Hotel":
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent = new Intent(Intent.ACTION_CALL);
                                 callIntent.setData(Uri.parse("tel:0953910882"));
 
                                 if (ActivityCompat.checkSelfPermission(VoiceActivity.this,
@@ -95,20 +94,35 @@ public class VoiceActivity extends BaseActivity {
                                 found = true;
                                 break;
                             case "call hotel":
-                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
+                                callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:0953910882"));
+
+                                if (ActivityCompat.checkSelfPermission(VoiceActivity.this,
+                                                                       Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    return;
+                                }
+                                startActivity(callIntent);
                                 found = true;
                                 break;
                             case "nazovi hotel":
-                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
+                                callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:0953910882"));
+
+                                if (ActivityCompat.checkSelfPermission(VoiceActivity.this,
+                                                                       Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    return;
+                                }
+                                startActivity(callIntent);
                                 found = true;
                                 break;
                             case "activities":
+
                                 startActivity(new Intent(VoiceActivity.this, ActivitiesActivity.class));
                                 found = true;
                                 finish();
                                 break;
                             case "aktivnosti":
-                                Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(VoiceActivity.this, ActivitiesActivity.class));
                                 found = true;
                                 break;
                             case "discounts":

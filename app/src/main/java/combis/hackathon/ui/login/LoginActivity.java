@@ -99,13 +99,12 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        requestAudioPermission();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        requestAudioPermission();
         presenter.setView(this);
     }
 
@@ -121,7 +120,7 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
 
     @AfterPermissionGranted(AUDIO_PERMISSION_CODE)
     private void requestAudioPermission() {
-        final String[] perms = {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE};
+        final String[] perms = {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
         if (EasyPermissions.hasPermissions(this, perms)) {
         } else {
             EasyPermissions.requestPermissions(this, getResources().getString(R.string.audio_permission_request),
