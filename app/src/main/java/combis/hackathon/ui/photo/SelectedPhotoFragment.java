@@ -1,5 +1,6 @@
 package combis.hackathon.ui.photo;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,8 @@ public class SelectedPhotoFragment extends Fragment {
     private String data;
     Bitmap canvasImage;
 
+    SendPhotoInterface sendPhotoInterface;
+
     private boolean isPhotoClicked = false;
 
     @BindView(R.id.selected_image)
@@ -52,12 +55,27 @@ public class SelectedPhotoFragment extends Fragment {
     public SelectedPhotoFragment() {
     }
 
+    public interface SendPhotoInterface {
+
+        public void sendPhoto(final String photo);
+    }
+
     public static SelectedPhotoFragment newIstance(String example_argument) {
         SelectedPhotoFragment selectedPhotoFragment = new SelectedPhotoFragment();
         Bundle args = new Bundle();
         args.putString(ARGUMENTS, example_argument);
         selectedPhotoFragment.setArguments(args);
         return selectedPhotoFragment;
+    }
+
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        try {
+            sendPhotoInterface = (SendPhotoInterface) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement interface");
+        }
     }
 
     @Override
@@ -78,12 +96,12 @@ public class SelectedPhotoFragment extends Fragment {
 //             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
 //             .into(selectedImage);
 
-
         Glide
                 .with(this)
                 .load(data)
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(300, 300) {
+
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
                         selectedImage.setImageBitmap(resource);
@@ -93,43 +111,30 @@ public class SelectedPhotoFragment extends Fragment {
 
 //        Picasso.with(getActivity()).load(data).placeholder(R.drawable.ic_gallery_placeholder).into(selectedImage);
 
-        selectedImage.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(final View view) {
-                if (isPhotoClicked) {
-                    linearLayout.setVisibility(View.GONE);
-                    selectedImage.setAlpha(1f);
-                    isPhotoClicked = false;
-                } else {
-                    isPhotoClicked = true;
-                    linearLayout.setVisibility(View.VISIBLE);
-                    selectedImage.setAlpha(0.4f);
-                }
+        selectedImage.setOnClickListener(view -> {
+            if (isPhotoClicked) {
+                linearLayout.setVisibility(View.GONE);
+                selectedImage.setAlpha(1f);
+                isPhotoClicked = false;
+            } else {
+                isPhotoClicked = true;
+                linearLayout.setVisibility(View.VISIBLE);
+                selectedImage.setAlpha(0.4f);
             }
         });
 
-        takeAPhoto.setOnClickListener(new View.OnClickListener() {
+        takeAPhoto.setOnClickListener(view -> Toast.makeText(getActivity(), "TAKE", Toast.LENGTH_SHORT).show());
 
-            @Override
-            public void onClick(final View view) {
-                Toast.makeText(getActivity(), "TAKE", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        sendAPhoto.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(final View view) {
+        sendAPhoto.setOnClickListener(view -> {
 //                Bitmap canvasImage = ((BitmapDrawable) selectedImage.getDrawable()).getBitmap();
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                canvasImage.compress(Bitmap.CompressFormat.JPEG, COMPRESS_QUALITY, bs);
-                byte[] bytes = bs.toByteArray();
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            canvasImage.compress(Bitmap.CompressFormat.JPEG, COMPRESS_QUALITY, bs);
+            byte[] bytes = bs.toByteArray();
 
-                String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
-                Log.d("Signature", encodedImage);
-                //todo here call request and open new activity with image info on another screen
-            }
+            String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+            sendPhotoInterface.sendPhoto(encodedImage);
+            Log.d("Signature", encodedImage);
+            //todo here call request and open new activity with image info on another screen
         });
 
         return v;

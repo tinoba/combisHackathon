@@ -17,10 +17,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
+import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
 
-public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPickAPhotoView, SelectedPhotoListener {
+public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPickAPhotoView, SelectedPhotoListener, SelectedPhotoFragment.SendPhotoInterface {
 
     @Inject
     TakeOrPickAPhotoPresenter presenter;
@@ -65,6 +66,11 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                                  WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+    }
+
+    @Override
+    public void sendPhoto(final String photo) {
+        presenter.uploadImage(new ImageRequest("1", photo));
     }
 
     @Override

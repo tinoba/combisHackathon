@@ -7,6 +7,9 @@ import java.util.List;
 import javax.inject.Named;
 
 import combis.hackathon.R;
+import combis.hackathon.data.api.models.request.ImageRequest;
+import combis.hackathon.data.api.models.response.UploadImageResponse;
+import combis.hackathon.data.service.NetworkService;
 import combis.hackathon.domain.usecase.LocalImagesUseCase;
 import combis.hackathon.manager.StringManager;
 import combis.hackathon.ui.base.presenter.BasePresenter;
@@ -28,13 +31,16 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
 
     private final LocalImagesUseCase localImagesUseCase;
 
+    private final NetworkService networkService;
+
     public TakeOrPickAPhotoPresenterImpl(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler,
                                          @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final StringManager stringManager,
-                                         final LocalImagesUseCase localImagesUseCase) {
+                                         final LocalImagesUseCase localImagesUseCase, final NetworkService networkService) {
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
         this.stringManager = stringManager;
         this.localImagesUseCase = localImagesUseCase;
+        this.networkService = networkService;
     }
 
     @Override
@@ -60,6 +66,24 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
         if (view != null) {
             view.showImagesPath(imageList);
         }
+    }
+
+    @Override
+    public void uploadImage(final ImageRequest imageRequest) {
+        if (view != null) {
+            addDisposable(networkService.uploadImage(imageRequest)
+                                        .subscribeOn(subscribeScheduler)
+                                        .observeOn(observeScheduler)
+                                        .subscribe(uploadImageResponse -> onUploadImageSuccess(uploadImageResponse), throwable -> onUploadImageFailure(throwable)));
+        }
+    }
+
+    private void onUploadImageFailure(final Throwable throwable) {
+        Timber.e(throwable);
+    }
+
+    private void onUploadImageSuccess(final UploadImageResponse uploadImageResponse) {
+        Timber.e("Upload successful");
     }
 }
 
