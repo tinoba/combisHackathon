@@ -1,9 +1,14 @@
 package combis.hackathon.ui.login;
 
+import android.Manifest;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -25,7 +30,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,20 +44,19 @@ import combis.hackathon.data.api.models.request.UserInformation;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
 import combis.hackathon.ui.home.HomeActivity;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class LoginActivity extends BaseActivity implements LoginView {
-
-    @Override
-    protected void inject(final ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
+public class LoginActivity extends BaseActivity implements LoginView, EasyPermissions.PermissionCallbacks{
 
     @Inject
     LoginPresenter presenter;
 
-    public static int ID;
-    public static String API_KEY;
+    @BindView(R.id.facebook_button)
+    LoginButton facebookButton;
+
     private static final int RC_SIGN_IN = 9001;
+    private static final int AUDIO_PERMISSION_CODE = 10;
 
     private static final String TAG = LoginActivity.class.getName();
 
@@ -62,8 +68,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     public String token;
 
-    @BindView(R.id.facebook_button)
-    LoginButton facebookButton;
+    @Override
+    protected void inject(final ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        requestAudioPermission();
     }
 
     @Override
@@ -99,9 +108,111 @@ public class LoginActivity extends BaseActivity implements LoginView {
         presenter.setView(this);
     }
 
+    @Override
+    public void onPermissionsGranted(final int requestCode, final List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(final int requestCode, final List<String> perms) {
+        finish();
+    }
+
+    @AfterPermissionGranted(AUDIO_PERMISSION_CODE)
+    private void requestAudioPermission() {
+        final String[] perms = {Manifest.permission.RECORD_AUDIO};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+        } else {
+            EasyPermissions.requestPermissions(this, getResources().getString(R.string.audio_permission_request),
+                                               AUDIO_PERMISSION_CODE, perms);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
     @OnClick(R.id.google_button)
     public void googleClicked() {
-        googleLogin();
+        //googleLogin();
+
+
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                        "combis.hackathon");
+
+        SpeechRecognizer recognizer = SpeechRecognizer
+                .createSpeechRecognizer(this.getApplicationContext());
+        RecognitionListener listener = new RecognitionListener() {
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> voiceResults = results
+                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (voiceResults == null) {
+                    Log.e(TAG, "No voice results");
+                } else {
+                    Log.d(TAG, "Printing matches: ");
+                    for (String match : voiceResults) {
+                        Log.d(TAG, match);
+                    }
+                }
+            }
+
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+                Log.d(TAG, "Ready for speech");
+            }
+
+            @Override
+            public void onError(int error) {
+                Log.d(TAG,
+                      "Error listening for speech: " + error);
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+                Log.d(TAG, "Speech starting");
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+                // TODO Auto-generated method stub
+
+            }
+        };
+        recognizer.setRecognitionListener(listener);
+        recognizer.startListening(intent);
+
     }
 
     @Override

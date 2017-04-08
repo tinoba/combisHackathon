@@ -4,7 +4,7 @@ public interface HomePresenter {
 
     void setView(HomeView view);
 
-    void getMovieInfo();
+    void getUserPlans();
 
     void dispose();
 }

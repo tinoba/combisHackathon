@@ -19,10 +19,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
-import combis.hackathon.domain.model.MovieInfo;
+import combis.hackathon.data.api.models.response.PlansResponse;
 import combis.hackathon.domain.model.PlanInfo;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
+import timber.log.Timber;
 
 public class HomeActivity extends BaseActivity implements HomeView, RecyclerViewAdapterPlans.Listener {
 
@@ -40,7 +41,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
 
     @BindView(R.id.activity_home_list_of_plans)
     RecyclerView recyclerViewPlans;
-
 
     public static Intent createIntent(final Context context) {
         return new Intent(context, HomeActivity.class);
@@ -65,7 +65,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         recyclerViewAdapter.setListener(this);
         recyclerViewPlans.setAdapter(recyclerViewAdapter);
 
-
         //TODO REMOVE THIS, TEST DATA
         planInfoList.clear();
         planInfoList.add(new PlanInfo("Putovanje Pariz", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
@@ -75,15 +74,13 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         planInfoList.add(new PlanInfo("Putovanje Barcelona", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
 
         recyclerViewAdapter.setData(planInfoList);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.setView(this);
-        //TODO here call code to get plan summary list
-        //presenter.getMovieInfo();
+        presenter.getUserPlans();
     }
 
     @Override
@@ -91,7 +88,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         super.onPause();
         presenter.dispose();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,7 +115,10 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
     }
 
     @Override
-    public void showData(final List<MovieInfo> movieInfo) {
+    public void showData(final List<PlansResponse> plansResponses) {
+        for (PlansResponse plansResponse : plansResponses) {
+            Timber.e(plansResponse.name);
+        }
         //TODO HERE SHOW DATA
         //Toast.makeText(this, movieInfo.get(0).getTitle(), Toast.LENGTH_SHORT).show();
     }
