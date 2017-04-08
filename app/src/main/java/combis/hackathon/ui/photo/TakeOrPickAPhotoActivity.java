@@ -1,14 +1,26 @@
 package combis.hackathon.ui.photo;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Base64;
+import android.util.Log;
 import android.view.WindowManager;
 
+import com.soundcloud.android.crop.Crop;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +30,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
 import combis.hackathon.data.api.models.request.ImageRequest;
+import combis.hackathon.device.PhotoRotationHandler;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
 
 public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPickAPhotoView, SelectedPhotoListener, SelectedPhotoFragment.SendPhotoInterface {
+
+    private static final int COMPRESS_QUALITY = 100;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int CROP_IMAGE_WIDTH = 250;
+    private static final int CROP_IMAGE_HEIGHT = 208;
 
     @Inject
     TakeOrPickAPhotoPresenter presenter;
@@ -41,6 +59,10 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
     LinearLayoutManager layoutManager;
     int positionInList;
     TakeorPickaAPhotoAdapter adapter;
+
+    File photoFile = null;
+    File imageFile = null;
+    private Bitmap imageToSave = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +93,11 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
     @Override
     public void sendPhoto(final String photo) {
         presenter.uploadImage(new ImageRequest("1", photo));
+    }
+
+    @Override
+    public void takeAnotherPhoto() {
+        takeAnotherPhotoWithCamera();
     }
 
     @Override
@@ -131,14 +158,13 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
         });
     }
 
-    private void checkPositionOffSelectedImage(int positionInList){
-        if(positionInList < 2) {
+    private void checkPositionOffSelectedImage(int positionInList) {
+        if (positionInList < 2) {
             layoutManager.scrollToPosition(positionInList);
-        }
-        else{
+        } else {
             final float scale = TakeOrPickAPhotoActivity.this.getResources().getDisplayMetrics().density;
             int pixels = (int) (OFFSET_TO_CENTER_IMAGE * scale + 0.5f);
-            layoutManager.scrollToPositionWithOffset(positionInList-MOVE_TO_POSITION_TO_CENTER_SELECTED_IMAGE, pixels);
+            layoutManager.scrollToPositionWithOffset(positionInList - MOVE_TO_POSITION_TO_CENTER_SELECTED_IMAGE, pixels);
         }
     }
 
@@ -146,5 +172,69 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
     public void onClicked(final int position) {
         positionInList = position;
         imageViewPager.setCurrentItem(position);
+    }
+
+    private void takeAnotherPhotoWithCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            try {
+                photoFile = new File(TakeOrPickAPhotoActivity.this.getExternalCacheDir(), "image_taken.jpeg");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null) {
+                Uri photoURI;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    photoURI = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                } else {
+                    photoURI = Uri.fromFile(photoFile);
+                }
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        imageToSave = null;
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            File outputDir = this.getCacheDir();
+            try {
+                Uri photoURI = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    photoURI = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                } else {
+                    if (photoFile != null) {
+                        photoURI = Uri.fromFile(photoFile);
+                    }
+                }
+                imageFile = File.createTempFile("profile_img", "jpeg", outputDir);
+                if(photoURI != null) {
+                    Crop.of(photoURI, Uri.fromFile(imageFile)).withAspect(CROP_IMAGE_WIDTH, CROP_IMAGE_HEIGHT).start(TakeOrPickAPhotoActivity.this);
+                }
+                else{
+                    Log.e("GRESKA", "PHOTO URI NULL");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == Crop.REQUEST_CROP && resultCode == RESULT_OK) {
+            try {
+                imageToSave = PhotoRotationHandler.rotateBitmap(imageFile.getAbsolutePath());
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                imageToSave.compress(Bitmap.CompressFormat.JPEG, COMPRESS_QUALITY, bs);
+                byte[] bytes = bs.toByteArray();
+
+                String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+                presenter.uploadImage(new ImageRequest("1", encodedImage));
+                Log.e("ENCODED IMAGE", encodedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
