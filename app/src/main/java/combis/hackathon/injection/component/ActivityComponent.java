@@ -1,6 +1,7 @@
 package combis.hackathon.injection.component;
 
 
+import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenter;
 import dagger.Component;
 import combis.hackathon.injection.module.ActivityModule;
 import combis.hackathon.injection.module.PresenterModule;
@@ -39,6 +40,8 @@ public interface ActivityComponent extends ActivityComponentActivityInjects, Act
     HomeRouter getHomeRouter();
 
     HomePresenter getHomePresenter();
+
+    TakeOrPickAPhotoPresenter getTakeOrPickAPhotoPresenter();
 
 
 }

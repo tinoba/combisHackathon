@@ -23,6 +23,7 @@ import combis.hackathon.domain.model.MovieInfo;
 import combis.hackathon.domain.model.PlanInfo;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
+import combis.hackathon.ui.photo.TakeOrPickAPhotoActivity;
 
 public class HomeActivity extends BaseActivity implements HomeView, RecyclerViewAdapterPlans.Listener {
 
@@ -104,8 +105,7 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.takePickPhoto:
-                //startActivity(new Intent(RecyclerViewActivity.this, MapsActivity.class));
-                Toast.makeText(this, "Open activity where you pick or take photo", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, TakeOrPickAPhotoActivity.class));
                 break;
             default:
                 break;
