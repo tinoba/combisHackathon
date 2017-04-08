@@ -83,7 +83,7 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
     }
 
     private void onUploadImageSuccess(final UploadImageResponse uploadImageResponse) {
-        Timber.e("Upload successful");
+        Timber.e("Upload successful " + uploadImageResponse.response);
     }
 }
 

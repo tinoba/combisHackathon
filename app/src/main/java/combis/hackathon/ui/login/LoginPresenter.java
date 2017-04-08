@@ -7,4 +7,6 @@ public interface LoginPresenter {
     void login(UserInformation userInformation);
 
     void setView(LoginView loginView);
+
+    long checkIfLoggedIn();
 }

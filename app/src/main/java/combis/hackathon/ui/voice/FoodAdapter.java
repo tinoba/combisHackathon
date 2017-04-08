@@ -43,7 +43,7 @@ public class FoodAdapter extends ArrayAdapter<Foods> {
             view.setTag(holder);
         }
 
-        holder.cijenaJelo.setText(String.valueOf(foods.get(position).price));
+        holder.cijenaJelo.setText(String.valueOf(foods.get(position).price + " kn"));
         holder.imeJela.setText(foods.get(position).name);
         holder.ratingBar.setRating(foods.get(position).rating);
         holder.textJelo.setText(foods.get(position).text);

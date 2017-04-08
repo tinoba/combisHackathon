@@ -3,6 +3,7 @@ package combis.hackathon.injection.module;
 import javax.inject.Named;
 
 import combis.hackathon.data.service.NetworkService;
+import combis.hackathon.data.storage.TemplatePreferences;
 import combis.hackathon.domain.usecase.LocalImagesUseCase;
 import combis.hackathon.injection.scope.ForActivity;
 import combis.hackathon.manager.StringManager;
@@ -32,8 +33,9 @@ public final class PresenterModule {
     @ForActivity
     @Provides
     LoginPresenter provideLoginPresenter(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler,
-                                         @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final NetworkService networkService) {
-        return new LoginPresenterImpl(networkService, subscribeScheduler, observeScheduler);
+                                         @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final NetworkService networkService,
+                                         final TemplatePreferences templatePreferences) {
+        return new LoginPresenterImpl(networkService, subscribeScheduler, observeScheduler, templatePreferences);
     }
 
     @ForActivity
