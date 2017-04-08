@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -34,6 +35,7 @@ public class LocalImagesUseCaseImpl implements LocalImagesUseCase {
             absolutePathOfImage = cursor.getString(column_index_data);
 
             listOfAllImages.add(absolutePathOfImage);
+            Collections.reverse(listOfAllImages);
         }
         return Single.just(listOfAllImages);
     }

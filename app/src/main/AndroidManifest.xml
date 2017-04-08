@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".application.TemplateApplication"
@@ -54,7 +55,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.voice.VoiceActivity">
+        <activity
+            android:name=".ui.voice.VoiceActivity"
+            android:screenOrientation="portrait"
+            >
         </activity>
 
         <service android:name=".device.CombisFirebaseMessagingService">
@@ -68,12 +72,26 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.survey.SurveyActivity">
+        <activity
+            android:name=".ui.survey.SurveyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.voice.FoodActivity">
+        <activity
+            android:name=".ui.voice.FoodActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.voice.ActivitiesActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp">
+
+    <RelativeLayout
+        android:id="@+id/activity_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:focusable="true"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/activity_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/activity_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_image"
+            android:textColor="#494949"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            tools:text="Sports"/>
+
+        <TextView
+            android:id="@+id/activity_item_info_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_item_name"
+            android:layout_marginTop="17dp"
+            android:textColor="#222222"
+            tools:text="Choose between different sports at your location"/>
+
+        <TextView
+            android:id="@+id/activity_item_info_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_item_info_one"
+            android:layout_marginTop="17dp"
+            tools:text="Our hotel gives you space to enjoy your sports."/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
