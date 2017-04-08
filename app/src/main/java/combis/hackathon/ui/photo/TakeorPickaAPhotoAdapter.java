@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -81,13 +80,19 @@ public class TakeorPickaAPhotoAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     private void showItemsFocusHolder(final FocusedPhotoViewHolder holder, int position) {
-        Picasso.with(context).load(new File(photoList.get(position))).placeholder(R.drawable.ic_gallery_placeholder).into(holder.libPhotoFocused);
+//        Picasso.with(context).load(new File(photoList.get(position))).placeholder(R.drawable.ic_gallery_placeholder).into(holder.libPhotoFocused);
 //        Picasso.with(context).load(new File(photoList.get(position))).into(holder.libPhotoFocused);
+        Glide.with(context).load(photoList.get(position))
+             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
+             .into(holder.libPhotoFocused);
         holder.wholeLayout.setTag(position);
     }
 
     private void showItemsNotFocusHolder(final PhotoViewHolder holder, final int position) {
-        Picasso.with(context).load(new File(photoList.get(position))).placeholder(R.drawable.ic_gallery_placeholder).into(holder.libPhotoNotFocused);
+//        Picasso.with(context).load(new File(photoList.get(position))).placeholder(R.drawable.ic_gallery_placeholder).into(holder.libPhotoNotFocused);
+        Glide.with(context).load(photoList.get(position))
+             .placeholder(R.drawable.ic_gallery_placeholder).centerCrop()
+             .into(holder.libPhotoNotFocused);
         holder.wholeLayout.setTag(position);
         holder.wholeLayout.setOnClickListener(new View.OnClickListener() {
 
