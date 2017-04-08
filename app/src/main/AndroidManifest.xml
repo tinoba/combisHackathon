@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
             android:allowBackup="true"
@@ -11,9 +12,11 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="combis.hackathon.ui.home.HomeActivity">
+        <activity android:name="combis.hackathon.ui.home.HomeActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity android:name="combis.hackathon.ui.login.LoginActivity">
@@ -22,6 +25,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.photo.TakeOrPickAPhotoActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
 
         </activity>
 

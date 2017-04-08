@@ -3,6 +3,7 @@ package combis.hackathon.injection.component;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import combis.hackathon.domain.usecase.LocalImagesUseCase;
 import dagger.Component;
 import combis.hackathon.application.TemplateApplication;
 import combis.hackathon.data.api.converter.MovieAPIConverter;
@@ -75,4 +76,6 @@ public interface ApplicationComponent extends ApplicationComponentInjects {
     TemplatePreferences getTemplatePreferences();
 
     NetworkService getNetworkService();
+
+    LocalImagesUseCase getImagesUseCase();
 }

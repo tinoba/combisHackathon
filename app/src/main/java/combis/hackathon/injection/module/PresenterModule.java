@@ -3,12 +3,19 @@ package combis.hackathon.injection.module;
 import javax.inject.Named;
 
 import combis.hackathon.data.service.NetworkService;
+import combis.hackathon.data.api.converter.MovieAPIConverter;
+import combis.hackathon.domain.usecase.LocalImagesUseCase;
+import combis.hackathon.domain.usecase.MovieUseCase;
 import combis.hackathon.injection.scope.ForActivity;
 import combis.hackathon.manager.StringManager;
 import combis.hackathon.ui.home.HomePresenter;
 import combis.hackathon.ui.home.HomePresenterImpl;
 import combis.hackathon.ui.login.LoginPresenter;
 import combis.hackathon.ui.login.LoginPresenterImpl;
+import dagger.Module;
+import dagger.Provides;
+import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenter;
+import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Scheduler;
@@ -32,4 +39,11 @@ public final class PresenterModule {
                                          @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final NetworkService networkService) {
         return new LoginPresenterImpl(networkService, subscribeScheduler, observeScheduler);
     }
+    @ForActivity
+    @Provides
+    TakeOrPickAPhotoPresenter provideTakeOrPickAPhotoPresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler,
+                                                               @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, LocalImagesUseCase localImagesUseCase, MovieAPIConverter movieAPIConverter, StringManager stringManager) {
+        return new TakeOrPickAPhotoPresenterImpl(subscribeScheduler, observeScheduler,stringManager, localImagesUseCase);
+    }
+
 }
