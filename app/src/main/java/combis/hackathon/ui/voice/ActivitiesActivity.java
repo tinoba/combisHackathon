@@ -36,7 +36,7 @@ public class ActivitiesActivity extends AppCompatActivity implements RecyclerVie
 
         ButterKnife.bind(this);
 
-        toolbar.setTitle(R.string.plan_summaries);
+        toolbar.setTitle(R.string.activities);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
