@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="combis.hackathon.ui.voice.VoiceActivity">
 
+    <Button
+        android:id="@+id/button_speak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:text="Press to speak"/>
 </RelativeLayout>

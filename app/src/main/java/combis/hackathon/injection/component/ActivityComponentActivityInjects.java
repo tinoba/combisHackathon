@@ -3,6 +3,7 @@ package combis.hackathon.injection.component;
 import combis.hackathon.ui.home.HomeActivity;
 import combis.hackathon.ui.login.LoginActivity;
 import combis.hackathon.ui.photo.TakeOrPickAPhotoActivity;
+import combis.hackathon.ui.voice.FoodActivity;
 import combis.hackathon.ui.voice.VoiceActivity;
 
 public interface ActivityComponentActivityInjects {
@@ -14,4 +15,6 @@ public interface ActivityComponentActivityInjects {
     void inject(TakeOrPickAPhotoActivity takeOrPickAPhotoActivity);
 
     void inject(VoiceActivity voiceActivity);
+
+    void inject(FoodActivity foodActivity);
 }

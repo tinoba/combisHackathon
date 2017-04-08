@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+
+                android:descendantFocusability="blocksDescendants"
+                android:background="@drawable/shape"
+                android:id="@+id/lay">
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/slikaJela"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/imeJela"
+        android:textColor="#170c03"
+        android:paddingLeft="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/ratingBar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Medium Text"
+        android:id="@+id/podaci_jelo"
+        android:layout_below="@+id/imeJela"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_toRightOf="@+id/slikaJela"
+        android:layout_alignBottom="@+id/slikaJela"
+        android:paddingLeft="5dp" />
+
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
+
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:isIndicator="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_above="@+id/podaci_jelo"
+        android:layout_alignRight="@+id/podaci_jelo"
+        android:layout_alignEnd="@+id/podaci_jelo"
+        android:layout_alignTop="@+id/slikaJela"
+        android:rating="2"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/jumbo_pizza"
+        android:layout_alignBottom="@+id/podaci_jelo"
+        android:layout_alignRight="@+id/podaci_jelo"
+        android:layout_alignEnd="@+id/podaci_jelo"
+        android:textColor="#a2131a" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/velika_pizza"
+        android:layout_alignBottom="@+id/podaci_jelo"
+        android:layout_toLeftOf="@+id/jumbo_pizza"
+        android:layout_toStartOf="@+id/jumbo_pizza"
+        android:layout_marginRight="15dp"
+        android:textColor="#a2131a" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/mala_pizza"
+        android:layout_alignBottom="@+id/podaci_jelo"
+        android:layout_toLeftOf="@+id/velika_pizza"
+        android:layout_toStartOf="@+id/velika_pizza"
+        android:layout_marginRight="15dp"
+        android:textColor="#a2131a" />
+
+</RelativeLayout>

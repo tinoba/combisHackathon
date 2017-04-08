@@ -184,7 +184,7 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
                             API_KEY = APIKEY;
                             ID = response.body().getData().getId();
                             Log.i("TAG", "on response " + APIKEY);
-                            startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
+                            startActivity(new Intent(FoodActivity.this, RecyclerViewActivity.class));
                             finish();
 
                         }

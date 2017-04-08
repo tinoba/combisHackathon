@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import combis.hackathon.R;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
@@ -15,10 +21,16 @@ import timber.log.Timber;
 
 public class VoiceActivity extends BaseActivity {
 
+    @BindView(R.id.button_speak)
+    Button speakButton;
+
+    SpeechRecognizer recognizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -26,10 +38,19 @@ public class VoiceActivity extends BaseActivity {
         activityComponent.inject(this);
     }
 
+    @OnClick(R.id.button_speak)
+    public void speak() {
+        speakButton.setVisibility(View.GONE);
+        startSpeaking();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        startSpeaking();
+    }
 
+    private void startSpeaking() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -37,7 +58,7 @@ public class VoiceActivity extends BaseActivity {
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                         "combis.hackathon");
 
-        SpeechRecognizer recognizer = SpeechRecognizer
+        recognizer = SpeechRecognizer
                 .createSpeechRecognizer(this.getApplicationContext());
         RecognitionListener listener = new RecognitionListener() {
 
@@ -50,8 +71,40 @@ public class VoiceActivity extends BaseActivity {
                 } else {
                     Timber.e("Printing matches: ");
 
+                    boolean found = false;
+                    int count = 0;
                     for (String match : voiceResults) {
-                        Timber.e(match);
+                        count++;
+                        //Timber.e(match);
+                        switch (match) {
+
+                            case "call Hotel":
+                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
+                            case "activities":
+                                Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
+                            case "discounts":
+                                Toast.makeText(VoiceActivity.this, "Discounts", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
+                            case "order food":
+                                startActivity(FoodActivity.createIntent(VoiceActivity.this));
+                                found = true;
+                                break;
+                            default:
+                                if (count == voiceResults.size()) {
+                                    Toast.makeText(VoiceActivity.this, "I don't understand this command", Toast.LENGTH_SHORT).show();
+                                    speakButton.setVisibility(View.VISIBLE);
+                                    found = true;
+                                    break;
+                                }
+                        }
+                        if (found) {
+                            break;
+                        }
                     }
                 }
             }
@@ -64,6 +117,7 @@ public class VoiceActivity extends BaseActivity {
             @Override
             public void onError(int error) {
                 Timber.e("Error listening for speech: " + error);
+                speakButton.setVisibility(View.VISIBLE);
             }
 
             @Override
