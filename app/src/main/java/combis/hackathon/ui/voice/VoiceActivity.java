@@ -24,6 +24,7 @@ import combis.hackathon.ui.base.activities.BaseActivity;
 import timber.log.Timber;
 
 public class VoiceActivity extends BaseActivity {
+//AIzaSyAOFceMdTAtI9psPWjpFGQ_0OngkL5qzYE
 
     @BindView(R.id.button_speak)
     Button speakButton;
@@ -91,6 +92,7 @@ public class VoiceActivity extends BaseActivity {
                                     return;
                                 }
                                 startActivity(callIntent);
+                                finish();
                                 found = true;
                                 break;
                             case "call hotel":
@@ -102,6 +104,7 @@ public class VoiceActivity extends BaseActivity {
                                     return;
                                 }
                                 startActivity(callIntent);
+                                finish();
                                 found = true;
                                 break;
                             case "nazovi hotel":
@@ -113,10 +116,10 @@ public class VoiceActivity extends BaseActivity {
                                     return;
                                 }
                                 startActivity(callIntent);
+                                finish();
                                 found = true;
                                 break;
                             case "activities":
-
                                 startActivity(new Intent(VoiceActivity.this, ActivitiesActivity.class));
                                 found = true;
                                 finish();
@@ -141,6 +144,17 @@ public class VoiceActivity extends BaseActivity {
                             case "naruči hranu":
                                 startActivity(FoodActivity.createIntent(VoiceActivity.this));
                                 found = true;
+                                finish();
+                                break;
+                            case "show landmarks":
+                                startActivity(new Intent(VoiceActivity.this, LandMarkMapActivity.class));
+                                found = true;
+                                finish();
+                                break;
+                            case "prikaži znamenitosti":
+                                startActivity(new Intent(VoiceActivity.this, LandMarkMapActivity.class));
+                                found = true;
+                                finish();
                                 break;
                             default:
                                 if (count == voiceResults.size()) {

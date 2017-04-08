@@ -8,5 +8,6 @@
     <string name="audio_permission_request">Allow our app to access you phrone data</string>
     <string name="voice_help">help</string>
     <string name="activities">Activities</string>
+    <string name="title_activity_land_mark_map">Map</string>
 
 </resources>

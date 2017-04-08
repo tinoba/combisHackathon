@@ -2,6 +2,8 @@
 <manifest package="combis.hackathon"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -57,8 +59,7 @@
         </activity>
         <activity
             android:name=".ui.voice.VoiceActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
         </activity>
 
         <service android:name=".device.CombisFirebaseMessagingService">
@@ -75,8 +76,7 @@
         <activity
             android:name=".ui.survey.SurveyActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
@@ -92,6 +92,23 @@
             android:parentActivityName=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+        <activity
+            android:name=".ui.voice.LandMarkMapActivity"
+            android:label="@string/title_activity_land_mark_map">
         </activity>
     </application>
 
