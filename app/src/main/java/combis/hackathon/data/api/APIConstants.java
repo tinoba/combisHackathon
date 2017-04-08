@@ -6,4 +6,5 @@ public interface APIConstants {
 
     String PATH_LOGIN = "users";
     String PATH_PLANS = "plans";
+    String PATH_IMAGE = "images";
 }
