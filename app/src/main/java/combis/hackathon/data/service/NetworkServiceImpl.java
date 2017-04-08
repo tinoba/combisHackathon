@@ -23,8 +23,8 @@ public final class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public Single<List<PlansResponse>> getUserPlans() {
-        return Single.defer(templateAPI::getUserPlans);
+    public Single<List<PlansResponse>> getUserPlans(final long id) {
+        return Single.defer(() -> templateAPI.getUserPlans(id));
     }
 
     @Override

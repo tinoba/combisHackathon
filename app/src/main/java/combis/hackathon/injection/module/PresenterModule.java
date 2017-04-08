@@ -26,8 +26,8 @@ public final class PresenterModule {
     @ForActivity
     @Provides
     HomePresenter provideHomePresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler, final NetworkService networkService,
-                                       @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, StringManager stringManager) {
-        return new HomePresenterImpl(subscribeScheduler, observeScheduler, networkService, stringManager);
+                                       @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, StringManager stringManager, final TemplatePreferences templatePreferences) {
+        return new HomePresenterImpl(subscribeScheduler, observeScheduler, networkService, stringManager, templatePreferences);
     }
 
     @ForActivity

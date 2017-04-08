@@ -7,10 +7,10 @@ import javax.inject.Named;
 import combis.hackathon.R;
 import combis.hackathon.data.api.models.response.PlansResponse;
 import combis.hackathon.data.service.NetworkService;
+import combis.hackathon.data.storage.TemplatePreferences;
 import combis.hackathon.manager.StringManager;
 import combis.hackathon.ui.base.presenter.BasePresenter;
 import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import timber.log.Timber;
 
 import static combis.hackathon.injection.module.ThreadingModule.OBSERVE_SCHEDULER;
@@ -28,12 +28,16 @@ public final class HomePresenterImpl extends BasePresenter implements HomePresen
 
     private final NetworkService networkService;
 
+    private final TemplatePreferences templatePreferences;
+
     public HomePresenterImpl(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler,
-                             @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final NetworkService networkService, final StringManager stringManager) {
+                             @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final NetworkService networkService, final StringManager stringManager,
+                             final TemplatePreferences templatePreferences) {
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
         this.networkService = networkService;
         this.stringManager = stringManager;
+        this.templatePreferences = templatePreferences;
     }
 
     @Override
@@ -44,7 +48,7 @@ public final class HomePresenterImpl extends BasePresenter implements HomePresen
     @Override
     public void getUserPlans() {
         if (view != null) {
-            addDisposable(networkService.getUserPlans()
+            addDisposable(networkService.getUserPlans(templatePreferences.getUserId())
                                         .subscribeOn(subscribeScheduler)
                                         .observeOn(observeScheduler)
                                         .subscribe(this::onGetPlansSuccess, this::onGetPlansFailure));

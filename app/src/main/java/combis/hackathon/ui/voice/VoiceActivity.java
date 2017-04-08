@@ -9,8 +9,8 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,7 +27,10 @@ public class VoiceActivity extends BaseActivity {
 //AIzaSyAOFceMdTAtI9psPWjpFGQ_0OngkL5qzYE
 
     @BindView(R.id.button_speak)
-    Button speakButton;
+    ImageButton speakButton;
+
+    @BindView(R.id.speak_text)
+    TextView speakText;
 
     SpeechRecognizer recognizer;
 
@@ -45,7 +48,8 @@ public class VoiceActivity extends BaseActivity {
 
     @OnClick(R.id.button_speak)
     public void speak() {
-        speakButton.setVisibility(View.GONE);
+        //speakButton.setVisibility(View.GONE);
+
         startSpeaking();
     }
 
@@ -56,6 +60,7 @@ public class VoiceActivity extends BaseActivity {
     }
 
     private void startSpeaking() {
+        speakText.setText("Speak now!");
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -159,7 +164,8 @@ public class VoiceActivity extends BaseActivity {
                             default:
                                 if (count == voiceResults.size()) {
                                     Toast.makeText(VoiceActivity.this, "I don't understand this command", Toast.LENGTH_SHORT).show();
-                                    speakButton.setVisibility(View.VISIBLE);
+                                    //speakButton.setVisibility(View.VISIBLE);
+                                    speakText.setText("Press to speak!");
                                     found = true;
                                     break;
                                 }
@@ -179,7 +185,8 @@ public class VoiceActivity extends BaseActivity {
             @Override
             public void onError(int error) {
                 Timber.e("Error listening for speech: " + error);
-                speakButton.setVisibility(View.VISIBLE);
+                //speakButton.setVisibility(View.VISIBLE);
+                speakText.setText("Press to speak!");
             }
 
             @Override

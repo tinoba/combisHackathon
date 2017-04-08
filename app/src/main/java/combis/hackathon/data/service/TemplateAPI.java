@@ -11,6 +11,7 @@ import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 import static combis.hackathon.data.api.APIConstants.PATH_IMAGE;
 import static combis.hackathon.data.api.APIConstants.PATH_LOGIN;
@@ -26,6 +27,6 @@ public interface TemplateAPI {
     Single<UploadImageResponse> uploadImage(@Body ImageRequest imageRequest);
 
     @GET(PATH_PLANS)
-    Single<List<PlansResponse>> getUserPlans();
+    Single<List<PlansResponse>> getUserPlans(@Path("id") long id);
 
 }
