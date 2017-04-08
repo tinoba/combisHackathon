@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "265723471902",
+    "firebase_url": "https://combishakaton.firebaseio.com",
+    "project_id": "combishakaton",
+    "storage_bucket": "combishakaton.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265723471902:android:ec3a9f021f8b26ed",
+        "android_client_info": {
+          "package_name": "combis.hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265723471902-fm0r7msasp01gaa8s3jt9bh0dj8ubni3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtafvvcq4vBLIMSYIjCdfNi4acgMHvKHQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
