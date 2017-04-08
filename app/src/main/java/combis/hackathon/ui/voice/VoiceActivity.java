@@ -1,10 +1,13 @@
 package combis.hackathon.ui.voice;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import combis.hackathon.Manifest;
 import combis.hackathon.R;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
@@ -79,8 +83,14 @@ public class VoiceActivity extends BaseActivity {
                         switch (match) {
 
                             case "call Hotel":
-                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
-                                found = true;
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:0377778888"));
+
+                                if (ActivityCompat.checkSelfPermission(VoiceActivity.this,
+                                                                       Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    return;
+                                }
+                                startActivity(callIntent);                                found = true;
                                 break;
                             case "activities":
                                 Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
