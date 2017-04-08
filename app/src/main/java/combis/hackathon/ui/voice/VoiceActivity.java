@@ -54,7 +54,8 @@ public class VoiceActivity extends BaseActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+        intent.putExtra("android.speech.extra.EXTRA_ADDITIONAL_LANGUAGES", new String[]{"en-US"});
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                         "combis.hackathon");
 
@@ -63,7 +64,7 @@ public class VoiceActivity extends BaseActivity {
         RecognitionListener listener = new RecognitionListener() {
 
             @Override
-            public void onResults(Bundle results) {
+            public void onResults(final Bundle results) {
                 ArrayList<String> voiceResults = results
                         .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (voiceResults == null) {
@@ -75,10 +76,18 @@ public class VoiceActivity extends BaseActivity {
                     int count = 0;
                     for (String match : voiceResults) {
                         count++;
-                        //Timber.e(match);
+                        Timber.e(match);
                         switch (match) {
 
                             case "call Hotel":
+                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
+                            case "call hotel":
+                                Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
+                            case "nazovi hotel":
                                 Toast.makeText(VoiceActivity.this, "Call hotel", Toast.LENGTH_SHORT).show();
                                 found = true;
                                 break;
@@ -86,11 +95,23 @@ public class VoiceActivity extends BaseActivity {
                                 Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
                                 found = true;
                                 break;
+                            case "aktivnosti":
+                                Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
                             case "discounts":
                                 Toast.makeText(VoiceActivity.this, "Discounts", Toast.LENGTH_SHORT).show();
                                 found = true;
                                 break;
+                            case "popusti":
+                                Toast.makeText(VoiceActivity.this, "Discounts", Toast.LENGTH_SHORT).show();
+                                found = true;
+                                break;
                             case "order food":
+                                startActivity(FoodActivity.createIntent(VoiceActivity.this));
+                                found = true;
+                                break;
+                            case "naruči hranu":
                                 startActivity(FoodActivity.createIntent(VoiceActivity.this));
                                 found = true;
                                 break;
