@@ -54,6 +54,21 @@
         </activity>
         <activity android:name=".ui.voice.VoiceActivity">
         </activity>
+
+
+        <service android:name=".device.CombisFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".device.CombisFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ui.survey.SurveyActivity">
+        </activity>
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait"/>

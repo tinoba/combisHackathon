@@ -1,6 +1,8 @@
 package combis.hackathon.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -22,6 +24,12 @@ public final class TemplateApplication extends Application {
         Timber.plant(new Timber.DebugTree());
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
     }
 
     public ApplicationComponent getApplicationComponent() {
