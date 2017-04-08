@@ -1,5 +1,6 @@
 package combis.hackathon.ui.voice;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import combis.hackathon.Manifest;
 import combis.hackathon.R;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
@@ -84,17 +84,19 @@ public class VoiceActivity extends BaseActivity {
 
                             case "call Hotel":
                                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                callIntent.setData(Uri.parse("tel:0377778888"));
+                                callIntent.setData(Uri.parse("tel:0953910882"));
 
                                 if (ActivityCompat.checkSelfPermission(VoiceActivity.this,
                                                                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                                     return;
                                 }
-                                startActivity(callIntent);                                found = true;
+                                startActivity(callIntent);
+                                found = true;
                                 break;
                             case "activities":
-                                Toast.makeText(VoiceActivity.this, "Activities", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(VoiceActivity.this, ActivitiesActivity.class));
                                 found = true;
+                                finish();
                                 break;
                             case "discounts":
                                 Toast.makeText(VoiceActivity.this, "Discounts", Toast.LENGTH_SHORT).show();
@@ -103,6 +105,7 @@ public class VoiceActivity extends BaseActivity {
                             case "order food":
                                 startActivity(FoodActivity.createIntent(VoiceActivity.this));
                                 found = true;
+                                finish();
                                 break;
                             default:
                                 if (count == voiceResults.size()) {

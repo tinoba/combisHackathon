@@ -100,6 +100,8 @@ public class SelectedPhotoFragment extends Fragment {
                 .with(this)
                 .load(data)
                 .asBitmap()
+                .placeholder(R.drawable.ic_gallery_placeholder)
+                .centerCrop()
                 .into(new SimpleTarget<Bitmap>(300, 300) {
 
                     @Override
