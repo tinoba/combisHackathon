@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="dean.com.template">
+          package="combis.hackathon">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:theme="@style/AppTheme"
             android:allowBackup="true"
-            android:name=".application.TemplateApplication"
+            android:name="combis.hackathon.application.TemplateApplication"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true">
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name="combis.hackathon.ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

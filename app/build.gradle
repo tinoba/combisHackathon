@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "dean.com.template"
+        applicationId "combis.hackathon"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
