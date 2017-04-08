@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
 import combis.hackathon.data.api.models.response.PlansResponse;
-import combis.hackathon.domain.model.PlanInfo;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
 import combis.hackathon.ui.voice.VoiceActivity;
@@ -33,7 +32,7 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
 
     LinearLayoutManager linearLayoutManager;
 
-    List<PlanInfo> planInfoList = new ArrayList<>();
+    List<PlansResponse> planInfoList = new ArrayList<>();
 
     @Inject
     HomePresenter presenter;
@@ -67,15 +66,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         recyclerViewAdapter.setListener(this);
         recyclerViewPlans.setAdapter(recyclerViewAdapter);
 
-        //TODO REMOVE THIS, TEST DATA
-        planInfoList.clear();
-        planInfoList.add(new PlanInfo("Putovanje Pariz", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
-        planInfoList.add(new PlanInfo("Putovanje MINKEN", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
-        planInfoList.add(new PlanInfo("Putovanje Budimpesta", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
-        planInfoList.add(new PlanInfo("Putovanje Ljubljana", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
-        planInfoList.add(new PlanInfo("Putovanje Barcelona", "20.6.2017", "HOTEL ALA PARIZ", "superiska od hotela"));
-
-        recyclerViewAdapter.setData(planInfoList);
     }
 
     @Override
@@ -124,8 +114,9 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         for (PlansResponse plansResponse : plansResponses) {
             Timber.e(plansResponse.name);
         }
-        //TODO HERE SHOW DATA
-        //Toast.makeText(this, movieInfo.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+        planInfoList.clear();
+        planInfoList.addAll(plansResponses);
+        recyclerViewAdapter.setData(planInfoList);
     }
 
     @Override

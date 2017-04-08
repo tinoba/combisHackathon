@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -58,6 +57,7 @@ public class SelectedPhotoFragment extends Fragment {
     public interface SendPhotoInterface {
 
         public void sendPhoto(final String photo);
+        void takeAnotherPhoto();
     }
 
     public static SelectedPhotoFragment newIstance(String example_argument) {
@@ -123,7 +123,7 @@ public class SelectedPhotoFragment extends Fragment {
             }
         });
 
-        takeAPhoto.setOnClickListener(view -> Toast.makeText(getActivity(), "TAKE", Toast.LENGTH_SHORT).show());
+        takeAPhoto.setOnClickListener(view -> sendPhotoInterface.takeAnotherPhoto());
 
         sendAPhoto.setOnClickListener(view -> {
 //                Bitmap canvasImage = ((BitmapDrawable) selectedImage.getDrawable()).getBitmap();

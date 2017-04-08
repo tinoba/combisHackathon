@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import combis.hackathon.R;
-import combis.hackathon.domain.model.PlanInfo;
+import combis.hackathon.data.api.models.response.PlansResponse;
 
 public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewAdapterPlans.PlanViewHolder> {
 
@@ -26,7 +26,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
     private Listener listener = Listener.EMPTY;
 
-    List<PlanInfo> planInfoList = new ArrayList<>();
+    List<PlansResponse> planInfoList = new ArrayList<>();
 
 
     @Override
@@ -37,10 +37,10 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
     @Override
     public void onBindViewHolder(final RecyclerViewAdapterPlans.PlanViewHolder holder, final int position) {
-        holder.planName.setText(planInfoList.get(position).getPlanName());
-        holder.hotelName.setText(planInfoList.get(position).getHotelName());
-        holder.planInfo.setText(planInfoList.get(position).getHotelInfo());
-        holder.planDate.setText(planInfoList.get(position).getPlanDate());
+        holder.planName.setText(planInfoList.get(position).getName());
+//        holder.hotelName.setText(planInfoList.get(position).getHotelName());
+//        holder.planInfo.setText(planInfoList.get(position).getHotelInfo());
+//        holder.planDate.setText(planInfoList.get(position).getPlanDate());
 
     }
 
@@ -49,7 +49,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
         return planInfoList.size();
     }
 
-    public void setData(List<PlanInfo> data) {
+    public void setData(List<PlansResponse> data) {
         planInfoList.clear();
         planInfoList.addAll(data);
         notifyDataSetChanged();
