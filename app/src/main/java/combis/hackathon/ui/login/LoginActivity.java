@@ -5,9 +5,6 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -30,7 +27,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +43,7 @@ import combis.hackathon.ui.home.HomeActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class LoginActivity extends BaseActivity implements LoginView, EasyPermissions.PermissionCallbacks{
+public class LoginActivity extends BaseActivity implements LoginView, EasyPermissions.PermissionCallbacks {
 
     @Inject
     LoginPresenter presenter;
@@ -137,81 +133,6 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
     @OnClick(R.id.google_button)
     public void googleClicked() {
         //googleLogin();
-
-
-
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                        "combis.hackathon");
-
-        SpeechRecognizer recognizer = SpeechRecognizer
-                .createSpeechRecognizer(this.getApplicationContext());
-        RecognitionListener listener = new RecognitionListener() {
-            @Override
-            public void onResults(Bundle results) {
-                ArrayList<String> voiceResults = results
-                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                if (voiceResults == null) {
-                    Log.e(TAG, "No voice results");
-                } else {
-                    Log.d(TAG, "Printing matches: ");
-                    for (String match : voiceResults) {
-                        Log.d(TAG, match);
-                    }
-                }
-            }
-
-            @Override
-            public void onReadyForSpeech(Bundle params) {
-                Log.d(TAG, "Ready for speech");
-            }
-
-            @Override
-            public void onError(int error) {
-                Log.d(TAG,
-                      "Error listening for speech: " + error);
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-                Log.d(TAG, "Speech starting");
-            }
-
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle params) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onPartialResults(Bundle partialResults) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onRmsChanged(float rmsdB) {
-                // TODO Auto-generated method stub
-
-            }
-        };
-        recognizer.setRecognitionListener(listener);
-        recognizer.startListening(intent);
 
     }
 

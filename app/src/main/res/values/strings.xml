@@ -6,4 +6,5 @@
     <string name="plan_summaries">Plan summaries</string>
     <string name="take_pick_photo">Take or pick a photo</string>
     <string name="audio_permission_request">Allow our app to access you phrone data</string>
+    <string name="voice_help">help</string>
 </resources>

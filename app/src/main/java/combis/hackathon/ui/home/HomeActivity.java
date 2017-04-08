@@ -23,6 +23,7 @@ import combis.hackathon.data.api.models.response.PlansResponse;
 import combis.hackathon.domain.model.PlanInfo;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
+import combis.hackathon.ui.voice.VoiceActivity;
 import timber.log.Timber;
 import combis.hackathon.ui.photo.TakeOrPickAPhotoActivity;
 
@@ -103,6 +104,9 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         switch (item.getItemId()) {
             case R.id.takePickPhoto:
                 startActivity(new Intent(HomeActivity.this, TakeOrPickAPhotoActivity.class));
+                break;
+            case R.id.voiceHelp:
+                startActivity(new Intent(HomeActivity.this, VoiceActivity.class));
                 break;
             default:
                 break;
