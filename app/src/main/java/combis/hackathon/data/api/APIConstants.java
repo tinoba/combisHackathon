@@ -2,8 +2,8 @@ package combis.hackathon.data.api;
 
 public interface APIConstants {
 
-    String BASE_URL = "http://rsc-harambe.azurewebsites.net/";
+    String BASE_URL = "http://rsc-harambe.azurewebsites.net/api/";
 
-    String PATH_LOGIN = "";
+    String PATH_LOGIN = "users";
 
 }

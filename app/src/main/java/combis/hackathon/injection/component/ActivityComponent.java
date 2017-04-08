@@ -1,6 +1,7 @@
 package combis.hackathon.injection.component;
 
 
+import combis.hackathon.ui.login.LoginPresenter;
 import dagger.Component;
 import combis.hackathon.injection.module.ActivityModule;
 import combis.hackathon.injection.module.PresenterModule;
@@ -40,6 +41,6 @@ public interface ActivityComponent extends ActivityComponentActivityInjects, Act
 
     HomePresenter getHomePresenter();
 
-
+    LoginPresenter getLoginPresenter();
 }
 

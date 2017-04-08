@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Template</string>
     <string name="fetch_movie_info_error">Couldn\'t fetch movie data</string>
+    <string name="fb_login_protocol_scheme">fb1419173978143843</string>
+    <string name="facebook_app_id">1419173978143843</string>
 </resources>

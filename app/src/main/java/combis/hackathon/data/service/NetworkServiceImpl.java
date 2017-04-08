@@ -2,7 +2,8 @@ package combis.hackathon.data.service;
 
 import java.util.List;
 
-import combis.hackathon.data.api.models.response.MovieApiResponse;
+import combis.hackathon.data.api.models.request.UserInformation;
+import combis.hackathon.data.api.models.response.LoginResponse;
 import io.reactivex.Single;
 
 public final class NetworkServiceImpl implements NetworkService {
@@ -11,5 +12,10 @@ public final class NetworkServiceImpl implements NetworkService {
 
     public NetworkServiceImpl(final TemplateAPI templateAPI) {
         this.templateAPI = templateAPI;
+    }
+
+    @Override
+    public Single<List<LoginResponse>> login(final UserInformation userInformation) {
+        return Single.defer(() -> templateAPI.login(userInformation));
     }
 }
