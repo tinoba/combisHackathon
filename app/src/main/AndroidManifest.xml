@@ -20,7 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.photo.TakeOrPickAPhotoActivity">
+        <activity
+            android:name=".ui.photo.TakeOrPickAPhotoActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
     </application>
 
