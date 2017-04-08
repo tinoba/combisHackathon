@@ -73,6 +73,11 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
+
+        if (presenter.checkIfLoggedIn() != 0) {
+            startActivity(HomeActivity.createIntent(this));
+        }
+
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);

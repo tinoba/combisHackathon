@@ -158,4 +158,10 @@ public class VoiceActivity extends BaseActivity {
         recognizer.setRecognitionListener(listener);
         recognizer.startListening(intent);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        recognizer.cancel();
+    }
 }

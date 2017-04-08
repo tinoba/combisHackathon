@@ -28,9 +28,4 @@ public interface TemplateAPI {
     @GET(PATH_PLANS)
     Single<List<PlansResponse>> getUserPlans();
 
-
-//    @Headers({CONTENT_TYPE_HEADER, ACCEPT_HEADER})
-//    @HTTP(method = "DELETE", path = PATH_CLAIM_DEVICE, hasBody = true)
-//    Observable<Response<Void>> returnDevice(@Header("Authorization") String authorization, @Body User user,
-//            @Path("person_id") long userId);
 }
