@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
 
     @AfterPermissionGranted(AUDIO_PERMISSION_CODE)
     private void requestAudioPermission() {
-        final String[] perms = {Manifest.permission.RECORD_AUDIO};
+        final String[] perms = {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
         } else {
             EasyPermissions.requestPermissions(this, getResources().getString(R.string.audio_permission_request),
