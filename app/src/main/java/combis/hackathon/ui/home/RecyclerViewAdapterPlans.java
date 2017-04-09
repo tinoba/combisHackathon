@@ -70,7 +70,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
         @OnClick(R.id.plan_item_layout)
         public void onItemClicked(View view) {
-            listener.getPlanIdAtPosition(planInfoList.get(getAdapterPosition()).id, planInfoList.get(getAdapterPosition()).id);
+            listener.getPlanIdAtPosition(planInfoList.get(getAdapterPosition()).id, planInfoList.get(getAdapterPosition()).transportId);
         }
 
         public PlanViewHolder(View itemView) {
