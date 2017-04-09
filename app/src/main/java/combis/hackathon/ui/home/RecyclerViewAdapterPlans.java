@@ -28,7 +28,6 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
     List<PlansResponse> planInfoList = new ArrayList<>();
 
-
     @Override
     public RecyclerViewAdapterPlans.PlanViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item, parent, false);
@@ -37,11 +36,10 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
     @Override
     public void onBindViewHolder(final RecyclerViewAdapterPlans.PlanViewHolder holder, final int position) {
-        holder.planName.setText(planInfoList.get(position).getName());
-//        holder.hotelName.setText(planInfoList.get(position).getHotelName());
-//        holder.planInfo.setText(planInfoList.get(position).getHotelInfo());
-//        holder.planDate.setText(planInfoList.get(position).getPlanDate());
+        holder.planName.setText(planInfoList.get(position).name);
 
+        holder.hotelName.setText(planInfoList.get(position).hotelName);
+        holder.planInfo.setText(planInfoList.get(position).destination);
     }
 
     @Override
@@ -59,7 +57,6 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
         this.listener = listener != null ? listener : Listener.EMPTY;
     }
 
-
     public class PlanViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.plan_item_name)
@@ -68,16 +65,12 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
         @BindView(R.id.plan_item_hotel_name)
         protected TextView hotelName;
 
-        @BindView(R.id.plan_item_date)
-        protected TextView planDate;
-
         @BindView(R.id.plan_item_info)
         protected TextView planInfo;
 
-
         @OnClick(R.id.plan_item_layout)
         public void onItemClicked(View view) {
-            listener.getPlanIdAtPosition(planInfoList.get(getAdapterPosition()).id, planInfoList.get(getAdapterPosition()).getTransportId());
+            listener.getPlanIdAtPosition(planInfoList.get(getAdapterPosition()).id, planInfoList.get(getAdapterPosition()).id);
         }
 
         public PlanViewHolder(View itemView) {
@@ -93,5 +86,4 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
             //NO OP
         }
     }
-
 }
