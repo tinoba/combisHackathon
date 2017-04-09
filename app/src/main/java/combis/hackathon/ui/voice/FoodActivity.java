@@ -9,6 +9,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
@@ -18,6 +20,9 @@ import combis.hackathon.ui.base.activities.BaseActivity;
 import timber.log.Timber;
 
 public class FoodActivity extends BaseActivity {
+
+    @Inject
+    FoodPresenter presenter;
 
     public static Intent createIntent(final Context context) {
         return new Intent(context, FoodActivity.class);
@@ -50,7 +55,7 @@ public class FoodActivity extends BaseActivity {
         foodsList.add(new Foods("Hamburger", R.drawable.hamburger, 35.00, 2f, "Burger with green salad, tomatoes and pommes"));
         foodsList.add(new Foods("Mussels", R.drawable.dagnje, 80.00, 4.5f, "Mussels with potatos and salad"));
 
-        foodList.setAdapter(new FoodAdapter(this, foodsList));
+        foodList.setAdapter(new FoodAdapter(this, foodsList, presenter));
     }
 
     @Override

@@ -32,6 +32,7 @@ public class VehicleActivity extends BaseActivity {
         activityComponent.inject(this);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();

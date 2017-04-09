@@ -10,6 +10,7 @@ import combis.hackathon.R;
 import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.data.api.models.response.UploadImageResponse;
 import combis.hackathon.data.service.NetworkService;
+import combis.hackathon.data.storage.TemplatePreferences;
 import combis.hackathon.domain.usecase.LocalImagesUseCase;
 import combis.hackathon.manager.StringManager;
 import combis.hackathon.ui.base.presenter.BasePresenter;
@@ -33,14 +34,17 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
 
     private final NetworkService networkService;
 
+    private final TemplatePreferences templatePreferences;
+
     public TakeOrPickAPhotoPresenterImpl(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler,
                                          @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final StringManager stringManager,
-                                         final LocalImagesUseCase localImagesUseCase, final NetworkService networkService) {
+                                         final LocalImagesUseCase localImagesUseCase, final NetworkService networkService, final TemplatePreferences templatePreferences) {
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
         this.stringManager = stringManager;
         this.localImagesUseCase = localImagesUseCase;
         this.networkService = networkService;
+        this.templatePreferences = templatePreferences;
     }
 
     @Override
@@ -69,9 +73,9 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
     }
 
     @Override
-    public void uploadImage(final ImageRequest imageRequest) {
+    public void uploadImage(final String photo) {
         if (view != null) {
-            addDisposable(networkService.uploadImage(imageRequest)
+            addDisposable(networkService.uploadImage(new ImageRequest(templatePreferences.getHotelId(), photo))
                                         .subscribeOn(subscribeScheduler)
                                         .observeOn(observeScheduler)
                                         .subscribe(uploadImageResponse -> onUploadImageSuccess(uploadImageResponse), throwable -> onUploadImageFailure(throwable)));

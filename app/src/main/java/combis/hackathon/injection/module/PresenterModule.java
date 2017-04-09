@@ -15,6 +15,8 @@ import combis.hackathon.ui.login.LoginPresenter;
 import combis.hackathon.ui.login.LoginPresenterImpl;
 import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenter;
 import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenterImpl;
+import combis.hackathon.ui.voice.FoodPresenter;
+import combis.hackathon.ui.voice.FoodPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Scheduler;
@@ -44,8 +46,8 @@ public final class PresenterModule {
     @Provides
     TakeOrPickAPhotoPresenter provideTakeOrPickAPhotoPresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler,
                                                                @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, LocalImagesUseCase localImagesUseCase,
-                                                               StringManager stringManager, NetworkService networkService) {
-        return new TakeOrPickAPhotoPresenterImpl(subscribeScheduler, observeScheduler, stringManager, localImagesUseCase, networkService);
+                                                               StringManager stringManager, NetworkService networkService, final TemplatePreferences templatePreferences) {
+        return new TakeOrPickAPhotoPresenterImpl(subscribeScheduler, observeScheduler, stringManager, localImagesUseCase, networkService, templatePreferences);
     }
 
     @ForActivity
@@ -54,5 +56,13 @@ public final class PresenterModule {
                                                      @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler,
                                                      NetworkService networkService, final TemplatePreferences templatePreferences) {
         return new HomeDetailsPresenterImpl(subscribeScheduler, observeScheduler, networkService, templatePreferences);
+    }
+
+    @ForActivity
+    @Provides
+    FoodPresenter provideFoodPresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler,
+                                       @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler,
+                                       NetworkService networkService, final TemplatePreferences templatePreferences) {
+        return new FoodPresenterImpl(subscribeScheduler, observeScheduler, networkService, templatePreferences);
     }
 }

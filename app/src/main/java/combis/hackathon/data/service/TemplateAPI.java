@@ -2,9 +2,11 @@ package combis.hackathon.data.service;
 
 import java.util.List;
 
+import combis.hackathon.data.api.models.request.FoodRequest;
 import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.data.api.models.request.UserInformation;
 import combis.hackathon.data.api.models.response.Aktivnost;
+import combis.hackathon.data.api.models.response.FoodResponse;
 import combis.hackathon.data.api.models.response.Hotel;
 import combis.hackathon.data.api.models.response.LoginResponse;
 import combis.hackathon.data.api.models.response.PlansResponse;
@@ -16,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
+import static combis.hackathon.data.api.APIConstants.PATH_FOOD;
 import static combis.hackathon.data.api.APIConstants.PATH_HOTEL;
 import static combis.hackathon.data.api.APIConstants.PATH_IMAGE;
 import static combis.hackathon.data.api.APIConstants.PATH_LOGIN;
@@ -42,4 +45,7 @@ public interface TemplateAPI {
 
     @GET(PATH_HOTEL)
     Single<List<Hotel>> getHotel(@Path("id") long id);
+
+    @POST(PATH_FOOD)
+    Single<FoodResponse> sendFood(@Body FoodRequest foodRequest);
 }
