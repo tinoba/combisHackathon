@@ -28,29 +28,51 @@
             android:textStyle="bold"
             tools:text="Putovanje Pariz"/>
 
-        <TextView
-            android:id="@+id/plan_item_date"
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/icon_bed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            tools:text="datum polaska"/>
+            android:layout_below="@+id/plan_item_name"
+            android:layout_marginTop="19dp"
+            android:shadowColor="#22000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:text="{fa-bed}"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/plan_item_hotel_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/plan_item_name"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="17dp"
+            android:layout_toEndOf="@+id/icon_bed"
             android:textColor="#222222"
             tools:text="Ime hotela"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/icon_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plan_item_hotel_name"
+            android:layout_marginTop="19dp"
+            android:shadowColor="#22000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:text="{fa-map}"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/plan_item_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/plan_item_hotel_name"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="17dp"
+            android:layout_toEndOf="@+id/icon_map"
             tools:text="Dodatni info za nesto "/>
 
     </RelativeLayout>

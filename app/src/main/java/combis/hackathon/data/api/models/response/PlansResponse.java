@@ -26,16 +26,4 @@ public final class PlansResponse {
         this.hotelName = hotelName;
         this.destination = destination;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getTransportId() {
-        return transportId;
-    }
 }
