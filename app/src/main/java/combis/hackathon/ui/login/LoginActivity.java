@@ -82,15 +82,6 @@ public class LoginActivity extends BaseActivity implements LoginView, EasyPermis
 
         ButterKnife.bind(this);
 
-
-      /*  getIntent().getStringExtra(MyFirebaseMesagingService.TITLE_EXTRA);
-        String text = getIntent().getStringExtra(MyFirebaseMesagingService.TEXT_EXTRA);
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Token: " + token);
-
-        if (text != null) {
-            Log.e("CALLED", text);
-        }*/
         facebookButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         facebookButton.registerCallback(callbackManager, mCallback);
 

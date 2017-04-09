@@ -7,4 +7,6 @@ public interface HomeDetailsPresenter {
     void getActivities(long id);
 
     void getTransport(long transportId);
+
+    void getHotel();
 }

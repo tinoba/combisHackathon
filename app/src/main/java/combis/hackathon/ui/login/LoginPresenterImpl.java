@@ -54,6 +54,7 @@ public class LoginPresenterImpl extends BasePresenter implements LoginPresenter 
     private void onLoginSuccess(final List<LoginResponse> loginResponse) {
         if (loginView != null) {
             templatePreferences.setUserId(loginResponse.get(0).id);
+            templatePreferences.setHotelId(loginResponse.get(0).currentHotel);
             loginView.goToHomeScreen();
         }
     }

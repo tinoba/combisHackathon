@@ -2,9 +2,9 @@ package combis.hackathon.data.storage;
 
 public interface PreferenceRepository {
 
-    void setApiKey(String apyKey);
+    void setHotelId(long id);
 
-    String getApyKey();
+    long getHotelId();
 
     void setUserId(long userId);
 

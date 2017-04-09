@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import combis.hackathon.R;
 import combis.hackathon.data.api.models.response.Aktivnost;
+import combis.hackathon.data.api.models.response.Hotel;
 import combis.hackathon.data.api.models.response.Transport;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
@@ -45,6 +46,7 @@ public class HomeDetailsActivity extends BaseActivity implements HomeDetailsView
         if (id != 0 && transportId != 0) {
             presenter.getActivities(id);
             presenter.getTransport(transportId);
+            presenter.getHotel();
         }
     }
 
@@ -56,5 +58,10 @@ public class HomeDetailsActivity extends BaseActivity implements HomeDetailsView
     @Override
     public void showTransports(final Transport transport) {
         Timber.e(transport.transport_type);
+    }
+
+    @Override
+    public void showTransports(final Hotel hotel) {
+        Timber.e(hotel.hotel_name);
     }
 }

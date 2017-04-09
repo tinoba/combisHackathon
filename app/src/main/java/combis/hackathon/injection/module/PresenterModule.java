@@ -52,7 +52,7 @@ public final class PresenterModule {
     @Provides
     HomeDetailsPresenter provideHomeDetailsPresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler,
                                                      @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler,
-                                                     NetworkService networkService) {
-        return new HomeDetailsPresenterImpl(subscribeScheduler, observeScheduler, networkService);
+                                                     NetworkService networkService, final TemplatePreferences templatePreferences) {
+        return new HomeDetailsPresenterImpl(subscribeScheduler, observeScheduler, networkService, templatePreferences);
     }
 }

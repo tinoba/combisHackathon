@@ -12,9 +12,7 @@ public final class TemplatePreferences implements PreferenceRepository {
 
     private static final long EMPTY_USER_ID = 0;
 
-
     private final SharedPreferences secureDelegate;
-
 
     public static TemplatePreferences create(final SharedPreferences secureDelegate) {
         return new TemplatePreferences(secureDelegate);
@@ -35,13 +33,12 @@ public final class TemplatePreferences implements PreferenceRepository {
     }
 
     @Override
-    public void setApiKey(final String apyKey) {
-        secureDelegate.edit().putString(KEY_APY_KEY, apyKey).apply();
+    public void setHotelId(final long hotelId) {
+        secureDelegate.edit().putLong(KEY_APY_KEY, hotelId).apply();
     }
 
     @Override
-    public String getApyKey() {
-        return secureDelegate.getString(KEY_APY_KEY, EMPTY_STRING);
-
+    public long getHotelId() {
+        return secureDelegate.getLong(KEY_APY_KEY, 0);
     }
 }

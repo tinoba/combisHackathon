@@ -9,4 +9,5 @@ public interface APIConstants {
     String PATH_IMAGE = "images";
     String PATH_PLAN = "planactivities/{id}";
     String PATH_TRANSPORT = "transport/{id}";
+    String PATH_HOTEL = "hotels/{id}";
 }
