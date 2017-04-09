@@ -156,6 +156,16 @@ public class VoiceActivity extends BaseActivity {
                                 found = true;
                                 finish();
                                 break;
+                            case "transport":
+                                startActivity(new Intent(VoiceActivity.this, VehicleActivity.class));
+                                found = true;
+                                finish();
+                                break;
+                            case "prijevoz":
+                                startActivity(new Intent(VoiceActivity.this, VehicleActivity.class));
+                                found = true;
+                                finish();
+                                break;
                             case "prikaži znamenitosti":
                                 startActivity(new Intent(VoiceActivity.this, LandMarkMapActivity.class));
                                 found = true;

@@ -6,5 +6,5 @@ public interface TakeOrPickAPhotoView {
 
     void showImagesPath(List<String> imageList);
 
-    void showToast(String place);
+    void goToPhotoDetails(String url);
 }

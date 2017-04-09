@@ -85,7 +85,7 @@ public class TakeOrPickAPhotoPresenterImpl extends BasePresenter implements Take
     private void onUploadImageSuccess(final UploadImageResponse uploadImageResponse) {
         Timber.e("Upload successful " + uploadImageResponse.response);
         if (view != null) {
-            view.showToast(uploadImageResponse.response);
+            view.goToPhotoDetails(uploadImageResponse.response);
         }
     }
 }

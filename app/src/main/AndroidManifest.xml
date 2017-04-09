@@ -112,6 +112,10 @@
         </activity>
         <activity android:name=".ui.home.HomeDetailsActivity">
         </activity>
+        <activity android:name=".ui.photo.PhotoDetailsActivity">
+        </activity>
+        <activity android:name=".ui.voice.VehicleActivity">
+        </activity>
     </application>
 
 </manifest>

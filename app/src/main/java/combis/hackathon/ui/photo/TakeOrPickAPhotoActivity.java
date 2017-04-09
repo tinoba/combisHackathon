@@ -15,7 +15,6 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.soundcloud.android.crop.Crop;
 
@@ -239,7 +238,7 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
     }
 
     @Override
-    public void showToast(final String place) {
-        Toast.makeText(this, place, Toast.LENGTH_SHORT).show();
+    public void goToPhotoDetails(final String url) {
+        startActivity(PhotoDetailsActivity.createIntent(this, url));
     }
 }
