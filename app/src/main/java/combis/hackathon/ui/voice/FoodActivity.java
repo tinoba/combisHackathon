@@ -3,6 +3,7 @@ package combis.hackathon.ui.voice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,12 +26,20 @@ public class FoodActivity extends BaseActivity {
     @BindView(R.id.food_list)
     ListView foodList;
 
+    @BindView(R.id.activity_home_toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
         ButterKnife.bind(this);
+
+        toolbar.setTitle(R.string.order_food);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Timber.e("foods");
         List<Foods> foodsList = new ArrayList<>();

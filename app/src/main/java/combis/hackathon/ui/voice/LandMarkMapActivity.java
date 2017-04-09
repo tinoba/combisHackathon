@@ -2,18 +2,19 @@ package combis.hackathon.ui.voice;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import java.util.List;
 
 import combis.hackathon.R;
 import combis.hackathon.domain.model.MarkerModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LandMarkMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -130,19 +132,34 @@ public class LandMarkMapActivity extends FragmentActivity implements OnMapReadyC
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.map_marker_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        WebView wv = new WebView(this);
-        wv.loadUrl("https://en.wikipedia.org/wiki/" + clickedMarker.getLandMarkTitle());
-        wv.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+        TextView landMarkTitle = (TextView) dialog.findViewById(R.id.name);
+        CircleImageView landMarkImage = (CircleImageView) dialog.findViewById(R.id.landmark_image);
+        TextView bigDiscription = (TextView) dialog.findViewById(R.id.description);
+        CircleImageView close = (CircleImageView) dialog.findViewById(R.id.close);
+        Button button = (Button) dialog.findViewById(R.id.button);
 
-                return true;
-            }
-        });
+        landMarkTitle.setText(clickedMarker.getLandMarkTitle());
+        bigDiscription.setText(clickedMarker.getBigDescription());
+        landMarkImage.setImageResource(clickedMarker.getLandMarkId());
+        close.setOnClickListener(view -> dialog.dismiss());
+        button.setOnClickListener(view -> startActivity(new Intent(LandMarkMapActivity.this, VehicleActivity.class)));
 
-        dialog.setContentView(wv);
+
+//        WebView wv = new WebView(this);
+//        wv.loadUrl("https://en.wikipedia.org/wiki/" + clickedMarker.getLandMarkTitle());
+//        wv.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//
+//                return true;
+//            }
+//        });
+//
+//        dialog.setContentView(wv);
 
         dialog.show();
     }

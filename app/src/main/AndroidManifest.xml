@@ -110,11 +110,21 @@
             android:name=".ui.voice.LandMarkMapActivity"
             android:label="@string/title_activity_land_mark_map">
         </activity>
-        <activity android:name=".ui.home.HomeDetailsActivity">
+        <activity
+            android:name=".ui.home.HomeDetailsActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
         <activity android:name=".ui.photo.PhotoDetailsActivity">
         </activity>
-        <activity android:name=".ui.voice.VehicleActivity">
+        <activity
+            android:name=".ui.voice.VehicleActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
     </application>
 
