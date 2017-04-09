@@ -2,8 +2,6 @@ package combis.hackathon.ui.photo;
 
 import android.app.Activity;
 
-import combis.hackathon.data.api.models.request.ImageRequest;
-
 public interface TakeOrPickAPhotoPresenter {
 
     void setView(TakeOrPickAPhotoView view);
@@ -12,5 +10,5 @@ public interface TakeOrPickAPhotoPresenter {
 
     void dispose();
 
-    void uploadImage(ImageRequest imageRequest);
+    void uploadImage(String photo);
 }

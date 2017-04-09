@@ -29,7 +29,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import combis.hackathon.R;
-import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.device.PhotoRotationHandler;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
@@ -92,7 +91,7 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
 
     @Override
     public void sendPhoto(final String photo) {
-        presenter.uploadImage(new ImageRequest("1", photo));
+        presenter.uploadImage(photo);
     }
 
     @Override
@@ -229,7 +228,7 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
 
                 String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
 
-                presenter.uploadImage(new ImageRequest("1", encodedImage));
+                presenter.uploadImage(encodedImage);
                 Log.e("ENCODED IMAGE", encodedImage);
             } catch (IOException e) {
                 e.printStackTrace();

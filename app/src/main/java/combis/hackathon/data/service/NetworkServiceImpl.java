@@ -2,9 +2,11 @@ package combis.hackathon.data.service;
 
 import java.util.List;
 
+import combis.hackathon.data.api.models.request.FoodRequest;
 import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.data.api.models.request.UserInformation;
 import combis.hackathon.data.api.models.response.Aktivnost;
+import combis.hackathon.data.api.models.response.FoodResponse;
 import combis.hackathon.data.api.models.response.Hotel;
 import combis.hackathon.data.api.models.response.LoginResponse;
 import combis.hackathon.data.api.models.response.PlansResponse;
@@ -48,5 +50,10 @@ public final class NetworkServiceImpl implements NetworkService {
     @Override
     public Single<List<Hotel>> getHotel(final long id) {
         return Single.defer(() -> templateAPI.getHotel(id));
+    }
+
+    @Override
+    public Single<FoodResponse> orderFood(final FoodRequest foodRequest) {
+        return Single.defer(() -> templateAPI.sendFood(foodRequest));
     }
 }

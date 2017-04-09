@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -23,11 +24,13 @@ import combis.hackathon.domain.model.Foods;
 public class FoodAdapter extends ArrayAdapter<Foods> {
 
     private List<Foods> foods;
+    FoodPresenter presenter;
 
-    public FoodAdapter(final Context context, List<Foods> foods) {
+    public FoodAdapter(final Context context, List<Foods> foods, final FoodPresenter presenter) {
         super(context, R.layout.food_row, foods);
 
         this.foods = foods;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -43,6 +46,7 @@ public class FoodAdapter extends ArrayAdapter<Foods> {
             view.setTag(holder);
         }
 
+        holder.lay.setOnClickListener(v -> presenter.sendFood(foods.get(position).name));
         holder.cijenaJelo.setText(String.valueOf(foods.get(position).price + " kn"));
         holder.imeJela.setText(foods.get(position).name);
         holder.ratingBar.setRating(foods.get(position).rating);
@@ -66,6 +70,9 @@ public class FoodAdapter extends ArrayAdapter<Foods> {
         TextView cijenaJelo;
         @BindView(R.id.slikaJela)
         ImageView slikaJela;
+
+        @BindView(R.id.lay)
+        RelativeLayout lay;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

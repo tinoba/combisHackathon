@@ -10,6 +10,7 @@ import combis.hackathon.ui.home.HomePresenter;
 import combis.hackathon.ui.home.HomeRouter;
 import combis.hackathon.ui.login.LoginPresenter;
 import combis.hackathon.ui.photo.TakeOrPickAPhotoPresenter;
+import combis.hackathon.ui.voice.FoodPresenter;
 import dagger.Component;
 
 @ForActivity
@@ -47,5 +48,7 @@ public interface ActivityComponent extends ActivityComponentActivityInjects, Act
     TakeOrPickAPhotoPresenter getTakeOrPickAPhotoPresenter();
 
     HomeDetailsPresenter getHomeDetailsPresenter();
+
+    FoodPresenter getFoodPresenter();
 }
 
