@@ -15,6 +15,7 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.soundcloud.android.crop.Crop;
 
@@ -211,10 +212,9 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
                     }
                 }
                 imageFile = File.createTempFile("profile_img", "jpeg", outputDir);
-                if(photoURI != null) {
+                if (photoURI != null) {
                     Crop.of(photoURI, Uri.fromFile(imageFile)).withAspect(CROP_IMAGE_WIDTH, CROP_IMAGE_HEIGHT).start(TakeOrPickAPhotoActivity.this);
-                }
-                else{
+                } else {
                     Log.e("GRESKA", "PHOTO URI NULL");
                 }
             } catch (IOException e) {
@@ -236,5 +236,10 @@ public class TakeOrPickAPhotoActivity extends BaseActivity implements TakeOrPick
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void showToast(final String place) {
+        Toast.makeText(this, place, Toast.LENGTH_SHORT).show();
     }
 }

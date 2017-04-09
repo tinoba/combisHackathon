@@ -7,6 +7,8 @@ import combis.hackathon.data.storage.TemplatePreferences;
 import combis.hackathon.domain.usecase.LocalImagesUseCase;
 import combis.hackathon.injection.scope.ForActivity;
 import combis.hackathon.manager.StringManager;
+import combis.hackathon.ui.home.HomeDetailsPresenter;
+import combis.hackathon.ui.home.HomeDetailsPresenterImpl;
 import combis.hackathon.ui.home.HomePresenter;
 import combis.hackathon.ui.home.HomePresenterImpl;
 import combis.hackathon.ui.login.LoginPresenter;
@@ -44,5 +46,13 @@ public final class PresenterModule {
                                                                @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, LocalImagesUseCase localImagesUseCase,
                                                                StringManager stringManager, NetworkService networkService) {
         return new TakeOrPickAPhotoPresenterImpl(subscribeScheduler, observeScheduler, stringManager, localImagesUseCase, networkService);
+    }
+
+    @ForActivity
+    @Provides
+    HomeDetailsPresenter provideHomeDetailsPresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler,
+                                                     @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler,
+                                                     NetworkService networkService) {
+        return new HomeDetailsPresenterImpl(subscribeScheduler, observeScheduler, networkService);
     }
 }

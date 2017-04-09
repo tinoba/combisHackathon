@@ -110,6 +110,8 @@
             android:name=".ui.voice.LandMarkMapActivity"
             android:label="@string/title_activity_land_mark_map">
         </activity>
+        <activity android:name=".ui.home.HomeDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

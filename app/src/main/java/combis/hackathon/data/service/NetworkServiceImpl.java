@@ -4,8 +4,10 @@ import java.util.List;
 
 import combis.hackathon.data.api.models.request.ImageRequest;
 import combis.hackathon.data.api.models.request.UserInformation;
+import combis.hackathon.data.api.models.response.Aktivnost;
 import combis.hackathon.data.api.models.response.LoginResponse;
 import combis.hackathon.data.api.models.response.PlansResponse;
+import combis.hackathon.data.api.models.response.Transport;
 import combis.hackathon.data.api.models.response.UploadImageResponse;
 import io.reactivex.Single;
 
@@ -30,5 +32,15 @@ public final class NetworkServiceImpl implements NetworkService {
     @Override
     public Single<UploadImageResponse> uploadImage(final ImageRequest imageRequest) {
         return Single.defer(() -> templateAPI.uploadImage(imageRequest));
+    }
+
+    @Override
+    public Single<List<Aktivnost>> getUserActivities(final long id) {
+        return Single.defer(() -> templateAPI.getUserActivities(id));
+    }
+
+    @Override
+    public Single<List<Transport>> getTransport(final long id) {
+        return Single.defer(() -> templateAPI.getTransport(id));
     }
 }

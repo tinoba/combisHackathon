@@ -21,7 +21,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
         Listener EMPTY = new EmptyListener();
 
-        void getPlanAtPosition(int position);
+        void getPlanIdAtPosition(long id, long transportId);
     }
 
     private Listener listener = Listener.EMPTY;
@@ -77,7 +77,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
 
         @OnClick(R.id.plan_item_layout)
         public void onItemClicked(View view) {
-            listener.getPlanAtPosition(getAdapterPosition());
+            listener.getPlanIdAtPosition(planInfoList.get(getAdapterPosition()).id, planInfoList.get(getAdapterPosition()).getTransportId());
         }
 
         public PlanViewHolder(View itemView) {
@@ -89,7 +89,7 @@ public class RecyclerViewAdapterPlans extends RecyclerView.Adapter<RecyclerViewA
     private static final class EmptyListener implements Listener {
 
         @Override
-        public void getPlanAtPosition(int position) {
+        public void getPlanIdAtPosition(long id, long transportId) {
             //NO OP
         }
     }

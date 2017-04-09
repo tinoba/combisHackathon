@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,9 @@ import combis.hackathon.R;
 import combis.hackathon.data.api.models.response.PlansResponse;
 import combis.hackathon.injection.component.ActivityComponent;
 import combis.hackathon.ui.base.activities.BaseActivity;
+import combis.hackathon.ui.photo.TakeOrPickAPhotoActivity;
 import combis.hackathon.ui.voice.VoiceActivity;
 import timber.log.Timber;
-import combis.hackathon.ui.photo.TakeOrPickAPhotoActivity;
 
 public class HomeActivity extends BaseActivity implements HomeView, RecyclerViewAdapterPlans.Listener {
 
@@ -65,7 +64,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
 
         recyclerViewAdapter.setListener(this);
         recyclerViewPlans.setAdapter(recyclerViewAdapter);
-
     }
 
     @Override
@@ -80,7 +78,6 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
         super.onPause();
         presenter.dispose();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,7 +117,7 @@ public class HomeActivity extends BaseActivity implements HomeView, RecyclerView
     }
 
     @Override
-    public void getPlanAtPosition(final int position) {
-        Toast.makeText(this, "POS" + position, Toast.LENGTH_SHORT).show();
+    public void getPlanIdAtPosition(final long id, final long transportId) {
+        startActivity(HomeDetailsActivity.createIntent(this, id, transportId));
     }
 }
